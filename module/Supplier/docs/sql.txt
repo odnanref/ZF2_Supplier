@@ -1,0 +1,29 @@
+
+CREATE TABLE IF NOT EXISTS suppliertype (
+idsuppliertype int auto_increment,
+name varchar(254),
+CODE varchar(254),
+PRIMARY KEY(idsuppliertype)
+);
+
+INSERT INTO suppliertype VALUES
+(1, 'Distributor', 'DIST'),
+(2, 'Processor', 'PRC'),
+(3, 'Packager', 'PCK'),
+(4, 'Wholesaler', 'WLS'),
+(5, 'Franchised', 'FSD'),
+(6, 'Merchant', 'MCT')
+;
+
+CREATE TABLE IF NOT EXISTS supplier (
+idsupplier bigint auto_increment,
+name varchar(254),
+company varchar(254),
+idsuppliertype int,
+PRIMARY KEY(idsupplier)
+);
+
+INSERT INTO supplier (idsupplier, name, company, type)
+VALUES (1, 'Viktor Heinz', 'Alvini', 1),
+(2, 'F. Sanchez', 'Alea Soluciones', 1)
+;

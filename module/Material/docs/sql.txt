@@ -1,0 +1,67 @@
+
+CREATE TABLE IF NOT EXISTS materialtype (
+idmaterialtype int auto_increment,
+name varchar(254),
+code varchar(254),
+PRIMARY KEY(idmaterialtype)
+);
+
+INSERT INTO materialtype VALUES
+(1, 'Laptop', 'LAPTOP'),
+(2, 'Cable Modem', 'CM'),
+(3, 'Furniture', 'FTR'),
+(4, 'Glass', 'GLS'),
+(5, 'Fence', 'FNC'),
+(6, 'Router', 'RTR'),
+(7, 'Food', 'FOOD'),
+(8, 'Low date Food', 'LFOOD')
+;
+
+CREATE TABLE IF NOT EXISTS brand
+(
+idbrand int auto_increment,
+name varchar(254),
+code varchar(40),
+primary key(idbrand)
+);
+
+INSERT INTO brand (idbrand, name) VALUES
+(1, 'Philips'),
+(2, 'Ikea'),
+(3, 'Thomson'),
+(4, 'Arris'),
+(5, 'HP'), (6, 'DELL'), (7,'IBM'), (8, 'Cannonical'),
+(9, 'Red Hat'), (10, 'GlassDrive'),(11, 'Fences R\' Us'),
+(12, 'Cisco'), (13, 'Juniper'),
+(14, 'Candy'), (15, 'Milky Factory');
+
+CREATE TABLE IF NOT EXISTS model
+(
+idmodel int auto_increment,
+idbrand int,
+idmaterialtype int,
+name varchar(254),
+code varchar(50),
+primary key(idmodel)
+);
+
+INSERT INTO model (idmodel, idbrand, idmaterialtype, name) VALUES
+(1, 1, 3, 'Long Chair'), (2, 3, 2, 'THG 540'),
+(3, 1, 3, 'Laptop desk'), (4, 3, 2, 'THG 425'),
+(5, 10, 4, 'Laptop desk'), (6, 4, 2, 'TM 601B'),
+(7, 5, 1, '6730b'), (8, 5, 1, 'PowerL'),
+(9, 11, 5, 'Eletric R1'), (10, 11, 5, 'Barb Wire'),(11, 11, 5, 'Barb Wire and Eletric'),
+(12, 12, 6, 'Ubr 7204VXR'),(13, 12, 6, 'Switch'),
+(14, 14, 7, 'Twiks') , (15,15, 8,'Finn Milk')
+;
+
+CREATE TABLE IF NOT EXISTS material (
+idmaterial int auto_increment,
+description varchar(254),
+stockable boolean,
+allowtransport boolean,
+allowbuytosupplier boolean,
+allowbuybyclient boolean,
+inhousebuild boolean,
+primary key(idmaterial)
+);
