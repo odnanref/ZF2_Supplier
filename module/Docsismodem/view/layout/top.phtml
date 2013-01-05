@@ -1,0 +1,25 @@
+<?php
+
+$this->headLink()
+        ->appendStylesheet('/js/dojo/dijit/themes/claro/claro.css');
+// adding scripts
+$this->headScript()->appendFile(
+    "/js/dojo/dojo/dojo.js",
+    'text/javascript'
+);
+
+$this->headScript()
+        ->appendScript('require(["dojo/parser", "dijit/layout/TabContainer",
+            "dijit/layout/ContentPane"]);')
+        ->prependScript('var dojoConfig={
+        has: {
+            "dojo-firebug": false
+        },
+
+        parseOnLoad: true,
+        async: true
+    };');
+
+?>
+
+POI

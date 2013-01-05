@@ -1,0 +1,43 @@
+====================
+
+Basic definition of module interconnection
+for docsismanager
+
+====================
+
+Docsismanager is a set of modules that handle diferent issues of CM
+provionement
+
+1. docsismodem 
+    Handles Cable modem DB insert, delete, update, select
+    config_file placement and generation
+    emta config
+2. docsissignal
+    Handles Plant collection and analysis tools
+3. network
+    Handles network ip assignments and client <-> cm relation for the network
+    cm <-> cmts
+    network -> EMTA's
+4. client
+    services 
+    device assigned
+    client details, address, contacts, etc
+5. billing
+    based on available services handles customer €€
+6. set-top-box 
+    same has 1. but for stb
+7. Material
+    Allows placement in database of new devices for customer assignment
+    Allows stock view
+8. Supplier
+    Allows view of suppliers pricing, RQ for quotes etc.
+    
+10.x Global view allows a global understanding about the network
+
+
+..
+   Local Variables:
+   mode: rst
+   fill-column: 79
+   End: 
+   vim: et syn=rst tw=79

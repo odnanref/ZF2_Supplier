@@ -5,7 +5,7 @@
  * and open the template in the editor.
  */
 
-namespace Supplier\Model;
+namespace Docsismanager\Model;
 
 use Zend\Db\RowGateway\RowGateway;
 use Zend\Db\Adapter\Adapter;
@@ -19,24 +19,15 @@ use Zend\InputFilter\InputFilterInterface;
  *
  * @author andref
  */
-class Supplier extends RowGateway implements InputFilterAwareInterface
+class Docsismodem extends RowGateway implements InputFilterAwareInterface
 {
-    protected $primaryKeyColumn = "idsupplier";
-
-    public static $AvailableTypes = array(
-        'Distributor'
-        ,'Processor'
-        ,'Packager'
-        ,'Wholesaler'
-        ,'Franchised'
-        ,'Merchant'
-        );
+    protected $primaryKeyColumn = "macaddr";
 
     private $inputFilter = null;
 
     public function __construct(Adapter $adapter)
     {
-        parent::__construct( "idsupplier", "supplier", $adapter);
+        parent::__construct( "macaddr", "docsismodem", $adapter);
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -51,53 +42,100 @@ class Supplier extends RowGateway implements InputFilterAwareInterface
             $factory     = new InputFactory();
 
             $inputFilter->add($inpt = $factory->createInput(array(
-                'name'     => 'idsupplier',
-                'required' => false,
+                'name'     => 'macaddr',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 12,
+                            'max'      => 12,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'serialnumber',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 1,
+                            'max'      => 254,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'macaddr_mta',
+                'required' => true,
+                'filters'  => array(
+                    array('name' => 'StripTags'),
+                    array('name' => 'StringTrim'),
+                ),
+                'validators' => array(
+                    array(
+                        'name'    => 'StringLength',
+                        'options' => array(
+                            'encoding' => 'UTF-8',
+                            'min'      => 12,
+                            'max'      => 12,
+                        ),
+                    ),
+                ),
+            )));
+
+            $inputFilter->add($factory->createInput(array(
+                'name'     => 'tel1',
+                'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),
                 ),
-            )));
-
-            $inputFilter->add($factory->createInput(array(
-                'name'     => 'name',
-                'required' => true,
-                'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
-                ),
                 'validators' => array(
                     array(
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 254,
+                            'min'      => 9,
+                            'max'      => 12,
                         ),
                     ),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'company',
+                'name'     => 'tel2',
                 'required' => true,
                 'filters'  => array(
-                    array('name' => 'StripTags'),
-                    array('name' => 'StringTrim'),
+                    array('name' => 'Int'),
                 ),
                 'validators' => array(
                     array(
                         'name'    => 'StringLength',
                         'options' => array(
                             'encoding' => 'UTF-8',
-                            'min'      => 1,
-                            'max'      => 254,
+                            'min'      => 9,
+                            'max'      => 12,
                         ),
                     ),
                 ),
             )));
 
             $inputFilter->add($factory->createInput(array(
-                'name'     => 'idsuppliertype',
+                'name'     => 'idmodel',
                 'required' => true,
                 'filters'  => array(
                     array('name' => 'Int'),

@@ -1,0 +1,30 @@
+<?php
+$this->headTitle($title = 'Cable modem list');
+?>
+
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+
+<p><a href="<?php echo $this->url('docsismodem', array(
+        'action'=>'add'));?>">Add new</a></p>
+
+<table class="table">
+<tr>
+    <th>Mac</th>
+    <th>Config File</th>
+    <th>Node</th>
+    <th>&nbsp;</th>
+</tr>
+<?php foreach($modems as $dm) { ?>
+<tr>
+    <td><?php echo $this->escapeHtml($dm->macaddr);?></td>
+    <td><?php echo $this->escapeHtml($dm->config_file);?></td>
+    <td><?php echo $this->escapeHtml($dm->node);?></td>
+    <td>
+        <a href="<?php echo $this->url("docsismodem",
+                array('action'=>'edit', 'id' => $dm->macaddr));?>">Edit</a>
+        <a href="<?php echo $this->url('docsismodem',
+            array('action'=>'delete', 'id' => $dm->macaddr));?>">Delete</a>
+    </td>
+</tr>
+<?php } ?>
+</table>

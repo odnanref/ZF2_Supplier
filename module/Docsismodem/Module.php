@@ -7,7 +7,7 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
-namespace Supplier;
+namespace Docsismodem;
 
 use Zend\Mvc\ModuleRouteListener;
 
@@ -17,8 +17,30 @@ class Module
     {
         $e->getApplication()->getServiceManager()->get('translator');
         $eventManager        = $e->getApplication()->getEventManager();
+        $eventManager->attach('dispatch', array($this, 'preDispatch'), 100);
         $moduleRouteListener = new ModuleRouteListener();
         $moduleRouteListener->attach($eventManager);
+    }
+
+    public function preDispatch($e)
+    {
+        $sm = $e->getApplication()->getServiceManager();
+        $helperHeadLink = $sm->get('viewhelpermanager')->get('headLink');
+        $helperHeadLink->appendStylesheet( '/js/dojo/dijit/themes/claro/claro.css');
+        $hHeadScript = $sm->get('viewhelpermanager')->get('headScript');
+        $hHeadScript->appendFile('/js/dojo/dojo/dojo.js', 'text/javascript');
+
+        $hHeadScript->appendScript('require( ["dojo/parser", 
+        "dijit/layout/TabContainer", 
+        "dijit/layout/ContentPane"]);')
+        ->prependScript('var dojoConfig={
+            has: {
+                "dojo-firebug": false
+            },
+            parseOnLoad: true,
+            async: true
+        }');
+
     }
 
     public function getConfig()
@@ -41,14 +63,9 @@ class Module
     {
         return array(
             'factories' => array(
-                'Supplier\Model\SupplierTable' =>  function($sm) {
+                'Docsismodem\Model\DocsismodemTable' =>  function($sm) {
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new \Supplier\Model\SupplierTable($dbAdapter);
-                    return $table;
-                },
-                'Supplier\Model\SupplierType' =>  function($sm) {
-                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
-                    $table     = new \Supplier\Model\SupplierType($dbAdapter);
+                    $table     = new \Docsismanager\Model\DocsismodemTable($dbAdapter);
                     return $table;
                 }
             ),

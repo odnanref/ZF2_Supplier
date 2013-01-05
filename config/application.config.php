@@ -2,6 +2,11 @@
 return array(
     'modules' => array(
         'Application',
+        'DoctrineModule',
+        'DoctrineORMModule',
+        'Material',
+        'Supplier',
+        'Docsismodem'
     ),
     'module_listener_options' => array(
         'config_glob_paths'    => array(

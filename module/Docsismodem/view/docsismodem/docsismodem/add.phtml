@@ -1,0 +1,59 @@
+<?php
+
+
+$title = 'Add new';
+$this->headTitle($title);
+
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('docsismodem', array('action' => 'add')));
+$form->prepare();
+
+echo $this->form()->openTag($form);
+?>
+<div style="width: 700px; height: 300px">
+    <div data-dojo-type="dijit/layout/TabContainer" style="width: 100%; height: 100%;">
+        <div data-dojo-type="dijit/layout/ContentPane" title="1. Modem" data-dojo-props="selected:true">
+            <?php
+            echo $this->formRow($form->get('macaddr'));
+            echo $this->formElementErrors($form->get('macaddr'));
+            echo $this->formRow($form->get('serialnumber'));
+            echo $this->formElementErrors($form->get('serialnumber'));
+            ?>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" title="2. EMTA">
+            <?php
+            echo $this->formRow($form->get('macaddr_mta'));
+            echo $this->formElementErrors($form->get('macaddr_mta'));
+            echo $this->formRow($form->get('tel1'));
+            echo $this->formRow($form->get('tel2'));
+            ?>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" title="3. Serviço">
+            <?php
+            echo $this->formRow($form->get('config_file'));
+            echo $this->formElementErrors($form->get('config_file'));
+            echo $this->formRow($form->get('presets'));
+            echo $this->formRow($form->get('state'));
+            echo $this->formElementErrors($form->get('state'));
+            ?>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" title="4. Equipamento">
+            <?php
+            echo $this->formRow($form->get('idbrand'));
+            echo $this->formRow($form->get('idmodel'));
+            echo $this->formElementErrors($form->get('idmodel'));
+            ?>
+        </div>
+        <div data-dojo-type="dijit/layout/ContentPane" title="Guardar">
+            <?php
+                echo $this->formSubmit($form->get('submit'));
+            ?>
+        </div>
+    </div>
+</div>
+<?php
+    echo $this->form()->closeTag();
+?>

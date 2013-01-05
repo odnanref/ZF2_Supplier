@@ -11,6 +11,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Supplier\Model\Supplier;
 use Supplier\Form\SupplierForm;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Description of SupplierController
@@ -19,7 +20,21 @@ use Supplier\Form\SupplierForm;
  */
 class SupplierController extends AbstractActionController
 {
-    protected $supplierTable = null;
+
+    /**
+    * @var Doctrine\ORM\EntityManager
+    */
+   protected $em;
+
+   public function getEntityManager()
+   {
+       if (null === $this->em) {
+           $this->em = $this->getServiceLocator()->get('doctrine.entitymanager.orm_default');
+       }
+       return $this->em;
+   }
+
+   protected $supplierTable = null;
 
     /**
      *
@@ -98,7 +113,7 @@ class SupplierController extends AbstractActionController
         $supplierRow = $this->getSupplierTable()->fetchRow("idsupplier = " . (int) $id);
         $supplier = new Supplier($this->getSupplierTable()->getAdapter());
 
-        $supplier->populateOriginalData((array)$supplierRow);
+        $supplier->populate((array)$supplierRow, true);
 
         $form = new SupplierForm($this->getSupplierTypes());
         $form->bind($supplierRow);
@@ -109,7 +124,7 @@ class SupplierController extends AbstractActionController
             $form->setData($request->getPost());
             $form->setInputFilter($supplier->getInputFilter());
             if ($form->isValid()) {
-                $supplier->populate((array)$supplierRow);
+                $supplier->exchangeArray((array) $supplierRow); // FIXME Test this
                 $supplier->save();
 
                 // Redirect to list of albums

@@ -7,19 +7,21 @@
  * @license   http://framework.zend.com/license/new-bsd New BSD License
  */
 
+namespace Docsismodem;
+
 return array(
     'router' => array(
         'routes' => array(
-            'supplier' => array(
+            'docsismodem' => array(
                 'type'    => 'segment',
                 'options' => array(
-                    'route'    => '/supplier[/:action][/:id]',
+                    'route'    => '/docsismodem[/:action][/:id]',
                     'constraints' => array(
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Supplier\Controller\Supplier',
+                        'controller' => 'Docsismodem\Controller\Docsismodem',
                         'action'     => 'index',
                     ),
                 ),
@@ -28,9 +30,9 @@ return array(
     ),
     'db' => array(
         'driver'         => 'Pdo',
-        'dsn'            => 'mysql:dbname=zf2test;host=localhost',
+        'dsn'            => 'mysql:dbname=dhcp;host=localhost',
         'driver_options' => array(
-            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
+            \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES \'UTF8\''
         )
     ),
     'service_manager' => array(
@@ -52,8 +54,8 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Supplier\Controller\Index' => 'Supplier\Controller\IndexController'
-            ,'Supplier\Controller\Supplier' => 'Supplier\Controller\SupplierController'
+            'Docsismodem\Controller\Index' => 'Docsismodem\Controller\IndexController'
+            ,'Docsismodem\Controller\Docsismodem' => 'Docsismodem\Controller\DocsismodemController'
         ),
     ),
     'view_manager' => array(
@@ -64,9 +66,10 @@ return array(
         'exception_template'       => 'error/index',
         'template_map' => array(
             //'layout/layout'           => __DIR__ . '/../view/layout/layout.phtml',
-            'supplier/index/index' => __DIR__ . '/../view/supplier/index/index.phtml',
-            //'error/404'               => __DIR__ . '/../view/error/404.phtml',
-            //'error/index'             => __DIR__ . '/../view/error/index.phtml',
+            'layout/top'                => __DIR__ . '/../view/layout/top.phtml',
+            'docsismodem/index/index' => __DIR__ . '/../view/docsismodem/index/index.phtml',
+            'error/404'               => __DIR__ . '/../view/error/404.phtml',
+            'error/index'             => __DIR__ . '/../view/error/index.phtml',
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
