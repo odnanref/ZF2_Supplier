@@ -162,9 +162,11 @@ class DMInputFilter extends InputFilter
         $idmodel = $factory->createInput(array("name" => "idmodel"));
         $idmodel->setValidatorChain($val);
         $this->add($idmodel);
-        // I don't whant to have brand in this input filter *** TODO
+        // Had to keep brand in the filter do to \Zend\Form\Element\Select 
+        // allways having require => true
         $brand = $factory->createInput(array("name" => "idbrand"));
         $brand->setRequired(false);
+        $this->add($brand);
 
         // Node
         $FilNode = new \Zend\Filter\FilterChain();
